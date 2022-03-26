@@ -83,16 +83,16 @@ class Train # Класс Train (Поезд)
   #@@ind = 0
 
   # Может принимать маршрут следования (объект класса Route).
-  def set_route(route)
+  def set_route(to_route)
     @ind = 1
-    @route = route
+    @to_route = to_route
     # При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
-    @current_station = route.route[@ind]
-    @next_station = route.route[@ind + 1]
-    @past_station = route.route[@ind - 1]
+    @current_station = to_route.route[@ind]
+    @next_station = to_route.route[@ind + 1]
+    @past_station = to_route.route[@ind - 1]
   end
 
-  attr_reader :route
+  attr_reader :to_route
 
   #чтобы иметь перечисление неких значений в классе используют константы и массивы, например:
   # class Train; TYPE = [:passanger, :cargo]; end
@@ -159,14 +159,14 @@ class Train # Класс Train (Поезд)
   # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
   def go
     @ind += 1
-    #next_station = route[1]
-    @current_station = route.route[@ind]
+    #next_station = to_route[1]
+    @current_station = to_route.route[@ind]
     #current_station +=1
   end
 
   def back
     @ind -= 1
-    @current_station = route.route[@ind]
+    @current_station = to_route.route[@ind]
     #current_station -=1
   end
 
@@ -174,34 +174,34 @@ class Train # Класс Train (Поезд)
   attr_reader :current_station, :next_station, :past_station
 
   def next_station
-    @next_station = route.route[@ind + 1]
+    @next_station = to_route.route[@ind + 1]
   end
 
   def past_station
-    @past_station = route.route[@ind - 1]
+    @past_station = to_route.route[@ind - 1]
   end
 
 =begin
   def tablo
     if @ind == 0
-      @current_station = route[@ind]
-      @next_station = route[@ind + 1]
+      @current_station = to_route[@ind]
+      @next_station = to_route[@ind + 1]
       #@current_station
       #@next_station
     elsif @ind > 0
-      @current_station = route[@ind]
-      @next_station = route[@ind + 1]
-      @past_station = route[@ind - 1]
+      @current_station = to_route[@ind]
+      @next_station = to_route[@ind + 1]
+      @past_station = to_route[@ind - 1]
       #@current_station
       #@next_station
       #@past_station
     end
 
-    #if @current_station == route[0]
-    #  @next_station = route[@@ind+1]
+    #if @current_station == to_route[0]
+    #  @next_station = to_route[@@ind+1]
     #  else
-    #  @next_station = route[@@ind+1]
-    #  @past_station = @route[@@ind-1]
+    #  @next_station = to_route[@@ind+1]
+    #  @past_station = @to_route[@@ind-1]
     #end
 
   end
@@ -222,7 +222,7 @@ c = Train.new(3, 1, 1)
 q.arrival(z)
 q.arrival(x)
 q.arrival(c)
-z.set_route(a.route)
+z.set_route(a.to_route)
 q.spisok_tip
 
 =end
