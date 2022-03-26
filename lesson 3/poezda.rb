@@ -81,14 +81,15 @@ end
 class Train # Класс Train (Поезд)
   #TYPE = [:passanger, :cargo]
   #@@ind = 0
+
   # Может принимать маршрут следования (объект класса Route).
   def set_route(route)
     @ind = 1
     @route = route
     # При назначении маршрута поезду, поезд автоматически помещается на первую станцию в маршруте.
-    @current_station = route[@ind]
-    @next_station = route[@ind + 1]
-    @past_station = route[@ind - 1]
+    @current_station = route.route[@ind]
+    @next_station = route.route[@ind + 1]
+    @past_station = route.route[@ind - 1]
   end
 
   attr_reader :route
@@ -159,13 +160,13 @@ class Train # Класс Train (Поезд)
   def go
     @ind += 1
     #next_station = route[1]
-    @current_station = route[@ind]
+    @current_station = route.route[@ind]
     #current_station +=1
   end
 
   def back
     @ind -= 1
-    @current_station = route[@ind]
+    @current_station = route.route[@ind]
     #current_station -=1
   end
 
@@ -173,11 +174,11 @@ class Train # Класс Train (Поезд)
   attr_reader :current_station, :next_station, :past_station
 
   def next_station
-    @next_station = route[@ind + 1]
+    @next_station = route.route[@ind + 1]
   end
 
   def past_station
-    @past_station = route[@ind - 1]
+    @past_station = route.route[@ind - 1]
   end
 
 =begin
