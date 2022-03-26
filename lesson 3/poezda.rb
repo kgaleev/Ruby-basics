@@ -224,5 +224,4 @@ q.arrival(c)
 z.set_route(a.route)
 q.spisok_tip
 
-
 =end
