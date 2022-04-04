@@ -109,7 +109,7 @@ class Train # Класс Train (Поезд)
     # @past_station = route.stations[@index - 1]
   end
 
-  attr_reader :route, :type #, :current_station_index # index check
+  attr_reader :route, :type, :wagons #, :current_station_index # index check
 
   #attr_reader :type # теперь можно обращаться к типу извне
 
@@ -125,32 +125,25 @@ class Train # Класс Train (Поезд)
   #  @speed
   #end
 
-  # Может тормозить (сбрасывать скорость до нуля)
-  def break
-    self.speed = 0
-    # self.speed(0) - не будет работать с геттером attr_reader :speed
-    # speed(0)
-  end
-
   # Может возвращать количество вагонов
-  def wagons
-    @wagons.count
+  def wagons_count
+    wagons.count
     # @wagons
   end
 
   # Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
-  def add_wagons(wagons)
-    if @speed == 0
-      @wagons.push(wagons) #@wagons << wagons
+  def add_wagon(wagon)
+    if speed == 0
+      wagons.push(wagon) #@wagons << wagons
 
     else
       puts "Саш, ну поезд же едет, ну ты чего? ޏ₍ὸ.ό₎ރ"
     end
   end
 
-  def delete_wagons(wagons)
-    if @speed == 0
-      @wagons.delete_at(wagons)
+  def delete_wagon(wagon)
+    if speed == 0
+      wagons.delete_at(wagon)
       #@wagons.delete_at(-1)
 
     else
@@ -187,6 +180,13 @@ class Train # Класс Train (Поезд)
     #@current_station = route.stations[@index]
     #@current_station.arrival(self)
     #current_station -=1
+  end
+
+  # Может тормозить (сбрасывать скорость до нуля)
+  def break
+    self.speed = 0
+    # self.speed(0) - не будет работать с геттером attr_reader :speed
+    # speed(0)
   end
 
   # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута / (past, current, next)
