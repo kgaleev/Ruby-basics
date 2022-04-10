@@ -15,8 +15,6 @@ require_relative 'cargo_train'
 #q=Station.new('q')
 #w=Station.new('w')
 #Station.all
-#a=Train.new(1,:cargo)
-#s=Train.new(2,:passenger)
 #Train.find(1)
 #Train.find(50)
 #d=CargoTrain.new(3)
@@ -29,6 +27,10 @@ require_relative 'cargo_train'
 #CargoTrain.instances
 #PassengerTrain.instances
 #Route.instances
+
+#will not work because private
+#a=Train.new(1,:cargo)
+#s=Train.new(2,:passenger)
 
 
 # Создать модуль, который позволит указывать название компании-производителя и получать его. Подключить модуль к классам Вагон и Поезд
