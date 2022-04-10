@@ -8,7 +8,14 @@ class Train # Класс Train (Поезд)
   # Константа - это любое значение, не обязательно массив; ее можно использовать и в других классах, обращаясь так: Train::TYPES.
 
   #include Manufacturer
-  extend Manufacturer
+  include Manufacturer
+  include InstanceCounter
+
+  @instances = 0
+
+  class << self
+    attr_accessor :instances
+  end
 
   # Имеет номер (произвольная строка) и тип (грузовой, пассажирский) #и количество вагонов, эти данные указываются при создании экземпляра класса
   def initialize(number, type)#, wagons) # initialize должен быть выше других методов
@@ -18,6 +25,8 @@ class Train # Класс Train (Поезд)
     #@wagons = (1..wagons).to_a
     @wagons = [] #При добавлении вагона к поезду, объект вагона должен передаваться как аргумент метода и сохраняться во внутреннем массиве поезда
     @speed = 0
+    register_instance
+    #self.class.instances +=1
     #@current_station -- без значения это не инициализация, а обращение; т.е. бесполезная строка
   end
 

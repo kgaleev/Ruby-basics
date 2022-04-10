@@ -1,8 +1,17 @@
 class Route # Класс Route (Маршрут) Имеет начальную и конечную станцию, а также список промежуточных станций
 
+  @instances = 0
+
+  class << self
+    attr_accessor :instances
+  end
+
+  include InstanceCounter
+
   def initialize(first_station, last_station)
     #Начальная и конечная станции указываютсся при создании маршрута
     @stations = [first_station, last_station]
+    register_instance
     # @last_station = last_station # для проверки при движении поезда до конечной
   end
 

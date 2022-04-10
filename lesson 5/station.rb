@@ -1,5 +1,12 @@
 class Station # Класс Station (Станция)
   @@all_stations = []
+  @instances = 0
+
+  class << self
+    attr_accessor :instances
+  end
+
+  include InstanceCounter
 
   def initialize(name)
     # Имеет название, которое указывается при ее создании
@@ -8,6 +15,7 @@ class Station # Класс Station (Станция)
     #@trains_type_cargo = [] # грузовые поезда;
     #@trains_type_passenger = [] # пассажирские поезда
     @@all_stations << self
+    register_instance
 
   end
 
