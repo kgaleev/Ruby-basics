@@ -3,15 +3,14 @@
 class Train # Класс Train (Поезд)
   @@trains = []
   #TYPE = [:passanger, :cargo]
-  # чтобы иметь перечисление неких значений в классе используют константы и массивы, например:
+
   # class Train; TYPE = [:passanger, :cargo]; end
   # Константа - это любое значение, не обязательно массив; ее можно использовать и в других классах, обращаясь так: Train::TYPES.
 
-  #include Manufacturer
   include Manufacturer
   include InstanceCounter
 
-  @instances = 0
+  #@instances = 0
 
   class << self
     attr_accessor :instances

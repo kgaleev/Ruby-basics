@@ -15,10 +15,10 @@ require_relative 'cargo_train'
 #q=Station.new('q')
 #w=Station.new('w')
 #Station.all
-#Train.find(1)
 #Train.find(50)
 #d=CargoTrain.new(3)
 #f=CargoTrain.new(4)
+#Train.find(3)
 #g=PassengerTrain.new(5)
 #z=Route.new(q,w)
 #x=Route.new(q,w)
