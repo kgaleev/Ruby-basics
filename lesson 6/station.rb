@@ -1,4 +1,4 @@
-class Station # Класс Station (Станция)
+class Station
   @@all_stations = []
   @instances = 0
 
@@ -9,19 +9,31 @@ class Station # Класс Station (Станция)
   include InstanceCounter
 
   def initialize(name)
-    # Имеет название, которое указывается при ее создании
     @name = name
     @trains = [] # все поезда на станции
-    #@trains_type_cargo = [] # грузовые поезда;
-    #@trains_type_passenger = [] # пассажирские поезда
     @@all_stations << self
     register_instance
-
+    station_name_check!
   end
 
   def self.all
     @@all_stations
+  end
 
+  def station_name_check!
+    #raise "Name can't be nil! Put it in quotes" if name.nil? #== nil
+    raise "Only string can be here" unless @name.is_a?(String) #@name.respond_to?(:to_s)
+    #raise ArgumentError, "Name can't be blank!" #if ArgumentError - not working
+    #raise ArgumentError.new("Name can't be blank") - not working
+  ensure
+    puts "(´_ゝ`)"
+  end
+
+  def valid?
+    station_name_check!
+    true
+  rescue
+    false
   end
 
   # Может принимать поезда (по одному за раз)
@@ -43,7 +55,6 @@ class Station # Класс Station (Станция)
   #end
 
   # Может возвращать список поездов на станции по типу кол-во грузовых, пассажирских
-  #def trains_by_type
   def trains_by_type(type)
     puts trains.select {|train| train.type == type}.count # без .count - по типу, а с .count - сосчитает
 
@@ -53,7 +64,6 @@ class Station # Класс Station (Станция)
     #nil - можно закрывать, чтобы метод не возвращал кучу данных в ответе
     #puts Train::TYPE
     #[@trains_type_cargo, @trains_type_passenger].flatten.tally
-
   end
 
   def list_trains
@@ -69,5 +79,4 @@ class Station # Класс Station (Станция)
     #  @trains_type_passenger.delete_at(-1)
     #end
   end
-
 end

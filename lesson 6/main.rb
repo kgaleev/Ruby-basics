@@ -1,3 +1,5 @@
+require_relative 'instance_counter'
+require_relative 'manufacturer'
 require_relative 'train'
 require_relative 'passenger_train'
 require_relative 'cargo_train'
@@ -23,7 +25,7 @@ trains = []
 stations = []
 #wagons = []
 
-loop do #нужен цикл
+loop do #цикл
 
   puts
   puts "Welcome to Railway builder PRO"
@@ -52,23 +54,31 @@ loop do #нужен цикл
   end
 
   if number == 2
-    puts "Enter train number"
-    train_number = gets.chomp #уникальное число
-    puts "Is your train cargo (1) or passenger (2)?"
-    #type = gets.chomp.to_sym
-    train_type = gets.chomp.to_i
-    #if type == :cargo
-    if train_type == 1
-      trains << CargoTrain.new(train_number)#, type)#, 1)
-      #train = CargoTrain.new(train_number, type, 1)
-      #puts "#{train_number}"
-    elsif train_type == 2
-      # elsif type == :passenger
-      trains << PassengerTrain.new(train_number)#, type)#, 1)
-      #train = PassengerTrain.new(train_number, type, 1)
-      #puts "#{train_number}"
+    begin
+    puts "Enter train number in format: ab2-3a (letters or numbers)"
+    train_number = gets.chomp
+      if train_number =~ /^\w{3}-?\w{2}$/
+        puts "Is your train cargo (1) or passenger (2)?"
+        #type = gets.chomp.to_sym
+        train_type = gets.chomp.to_i
+        #if type == :cargo
+        if train_type == 1
+          trains << CargoTrain.new(train_number)
+          puts "\n#{train_number} created!"
+        elsif train_type == 2
+        #elsif type == :passenger
+          trains << PassengerTrain.new(train_number)
+          puts "\n#{train_number} created!"
+        end
+      else
+        raise
+        #puts "Format should be: ab2-3a. Try again"
+      end
+    rescue
+      puts "\nFormat should be: ab2-3a. Try again"
+      retry
     end
-    puts trains
+    #puts trains
   end
 
   if number == 3
@@ -188,6 +198,4 @@ loop do #нужен цикл
       station.list_trains
     end
   end
-
-
 end

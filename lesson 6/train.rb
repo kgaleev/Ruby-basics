@@ -27,8 +27,21 @@ class Train # Класс Train (Поезд)
     @wagons = [] #При добавлении вагона к поезду, объект вагона должен передаваться как аргумент метода и сохраняться во внутреннем массиве поезда
     @speed = 0
     register_instance
+    train_check!
     #self.class.instances +=1
     #@current_station -- без значения это не инициализация, а обращение; т.е. бесполезная строка
+  end
+
+  def train_check!
+    #raise "Whole number only" unless @number.is_a?(Integer)
+    raise "Format should be: 3 letters (or numbers) - 2 letters (or numbers); ex: ab2-3a" unless @number =~ /^\w{3}-?\w{2}$/
+  end
+
+  def valid?
+    train_check!
+    true
+  rescue
+    false
   end
 
   def self.find(train_number)
@@ -55,7 +68,7 @@ class Train # Класс Train (Поезд)
   def wagons_count
     wagons.count
     # @wagons
-    # можно сравнивать через a.wagons[2].object_id , чтобы объекты не дублировались айди вагонов
+    # можно сравнивать через a.wagons[2].object_id , чтобы объекты не дублировались
   end
 
   # Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
@@ -91,14 +104,13 @@ class Train # Класс Train (Поезд)
     # тут нужна проверка на последнюю станцию, иначе поезд может уехать в пустоту
     #if @current_station_index != -1
     #@current_station = route.stations[@current_station_index]
-    route.stations[@current_station_index].dispatch(self) # это удаление поезда с текущей станции
+    route.stations[@current_station_index].dispatch(self) # удаление поезда с текущей станции
     #end
     #next_station = to_route[1]
     @current_station_index += 1
     #@index += 1
     #@current_station = route.stations[@current_station_index]
     route.stations[@current_station_index].arrival(self) # вызов объекта другого класса с его методом
-    #current_station +=1
   end
 
   def back
@@ -110,29 +122,18 @@ class Train # Класс Train (Поезд)
       route.stations[@current_station_index].arrival(self)
       #@current_station.arrival(self)
     end
-    #@index -= 1
     #@current_station_index -= 1
     #@current_station = route.stations[@index]
     #@current_station.arrival(self)
-    #current_station -=1
   end
 
   # Может возвращать текущую скорость
   attr_reader :speed #или вообще знать о её существовании
-  #def speed
-  #  @speed
-  #end
 
   # Может набирать скорость
   attr_writer :speed
   #def speed(speed)
   #  @speed = speed
-  #end
-
-  # Может возвращать текущую скорость
-  attr_reader :speed
-  #def speed
-  #  @speed
   #end
 
   # Может тормозить (сбрасывать скорость до нуля)
