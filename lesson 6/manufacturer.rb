@@ -9,5 +9,4 @@ module Manufacturer
   #end
 
   attr_reader :company
-
 end

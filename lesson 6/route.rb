@@ -47,5 +47,4 @@ class Route
   def list_stations
     puts @stations # peredelat na ['Алексей', 'Евгений'].each { |name| puts name }
   end
-
 end

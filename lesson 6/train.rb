@@ -163,5 +163,4 @@ class Train # Класс Train (Поезд)
   def super_complex_method_break #пользователю не нужна супер сложная функция торможения, но она нужна подклассам в случае переопределения
     self.speed = 0
   end
-
 end

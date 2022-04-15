@@ -27,25 +27,5 @@ module InstanceCounter
     end
   end
 end
-=begin
-class Train
-
-  include InstanceCounter
-
-  def initialize(number, type)
-    @number = number
-    @type = type
-    @wagons = []
-    @speed = 0
-  end
-end
-
-a = Train.new(1, :cargo)
-Train.instances
-a.register_instance
-
-nil
-nil
 
 # чтобы работал дебаг в модуле, нужно сюда накидать классы, инициализации и вызвать методы, а потом это всё проверять
-=end
