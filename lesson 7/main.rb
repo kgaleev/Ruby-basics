@@ -42,6 +42,8 @@ loop do #цикл
   puts "10. Move train backward"
   puts "11. Show list of stations"
   puts "12. Show list of trains on station" # + "\n"
+  puts "13. Book a seat or Load some cargo"
+  puts "14. Show list of wagons for train"
   puts
 
   number = gets.chomp.to_i
@@ -135,7 +137,7 @@ loop do #цикл
       puts route
     end
     route_index = gets.chomp.to_i
-    puts "Select train number"
+    puts "Enter train number"
     trains.each {|train| puts "#{train.number} : #{train}"}
     train_number = gets.chomp
     train = trains.find {|train| train.number == train_number}
@@ -146,12 +148,20 @@ loop do #цикл
   if number == 7
     puts "Select train number"
     trains.each {|train| puts "#{train.number} : #{train}"}
+    puts "\n"
     train_number = gets.chomp
     train = trains.find {|train| train.number == train_number}
     if train.type == :cargo
-      train.add_wagon(CargoWagon.new(train.type))
+      puts "\n" + "Specify capacity of a wagon"
+      capacity = gets.chomp.to_i
+      train.add_wagon(CargoWagon.new(train.type, capacity))
+      puts "\n" + "Cargo wagon with capacity of #{capacity} added to Train #{train.number}"
+      #puts "Cargo wagon #{CargoWagon.new(train.type, capacity)} added to Train #{train.number}"
     elsif train.type == :passenger
-      train.add_wagon(PassengerWagon.new(train.type))
+      puts "\n" + "Specify number of seats in a wagon"
+      seats = gets.chomp.to_i
+      train.add_wagon(PassengerWagon.new(train.type, seats))
+      puts "\n" + "Passenger wagon with #{seats} seats added to Train #{train.number}"
     end
     puts train.wagons
   end
@@ -195,7 +205,49 @@ loop do #цикл
     if station.trains.empty? # if проверяет на true, a empty? возвращает true/false
       puts "you notice a group of strangers staring at you ༼ ºل͟º ༼ ºل͟º ༼ ºل͟º ༽ ºل͟º ༽ ºل͟º ༽ seems like you did something not acceptable"
     else
-      station.list_trains
+      #station.list_trains
+      station.count_trains_with_block { trains.each { |train| puts train} }
     end
+  end
+
+  if number == 13
+    puts "\nEnter train number"
+    trains.each {|train| puts "#{train.number} : #{train}"}
+    train_number = gets.chomp
+    train = trains.find {|train| train.number == train_number}
+    puts "\n" + "Choose wagon"
+    train.wagons.each_with_index do |wagon, index|
+      print index
+      print ": "
+      puts wagon
+    end
+    wagon_index = gets.chomp.to_i
+    if train.wagons[wagon_index].wagon_type == :cargo
+      puts "\n" + "Enter loading weight"
+      weight = gets.chomp.to_i
+      train.wagons[wagon_index].cargo_load = weight
+      puts "\n" + "Remaining capacity: #{train.wagons[wagon_index].remaining_load}"
+    elsif train.wagons[wagon_index].wagon_type == :passenger
+      train.wagons[wagon_index].book_seat
+      puts "\n" + "Remaining seats: #{train.wagons[wagon_index].free_seats}"
+    end
+  end
+
+  if number == 14
+    puts "\n" + "Select train"
+    trains.each_with_index do |train, index|
+      print index
+      print ": "
+      puts train.number
+    end
+    train_index = gets.chomp.to_i
+    puts "\n" + "Use SUPERPOWER?"
+    answer_doesnt_matter = gets.chomp
+    puts "\n" + "BLOKACHU I PICK YOU ϞϞ(๑⚈․⚈๑)∩"
+    puts
+    b = proc {|wagons| puts "#{wagons}"}
+    trains[train_index].wagons_puts_with_block(&b)
+    #trains[train_index]
+
   end
 end

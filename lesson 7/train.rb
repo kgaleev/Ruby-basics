@@ -61,7 +61,7 @@ class Train # Класс Train (Поезд)
     # @past_station = route.stations[@index - 1]
   end
 
-  attr_reader :number, :route, :type, :wagons #, :current_station_index # index check
+  attr_reader :number, :route, :type, :wagons
   #attr_reader :type -- можно обращаться к типу извне
 
   # Может возвращать количество вагонов
@@ -74,7 +74,6 @@ class Train # Класс Train (Поезд)
   # Может прицеплять/отцеплять вагоны (по одному вагону за операцию, метод просто увеличивает или уменьшает количество вагонов). Прицепка/отцепка вагонов может осуществляться только если поезд не движется.
 
   def add_wagon(wagon)
-    #if check_may_add_wagon(wagons)? == true
     if @speed == 0 && @type == wagon.wagon_type
       @wagons.push(wagon) #@wagons << wagons
     elsif @speed == 0 && @type != wagon.wagon_type
@@ -94,10 +93,6 @@ class Train # Класс Train (Поезд)
       puts "Саш, ну поезд же едет, ну ты чего? ޏ₍ὸ.ό₎ރ"
     end
   end
-
-  #def check_may_add_wagon(wagon)
-  #  @type == wagons.wagon_type
-  #end
 
   # Может перемещаться между станциями, указанными в маршруте. Перемещение возможно вперед и назад, но только на 1 станцию за раз.
   def forward
@@ -132,15 +127,11 @@ class Train # Класс Train (Поезд)
 
   # Может набирать скорость
   attr_writer :speed
-  #def speed(speed)
-  #  @speed = speed
-  #end
 
   # Может тормозить (сбрасывать скорость до нуля)
   def break
     super_complex_method_break
     # self.speed(0) - не будет работать с геттером attr_reader :speed
-    # speed(0)
   end
 
   # Возвращать предыдущую станцию, текущую, следующую, на основе маршрута / (past, current, next)
@@ -157,6 +148,24 @@ class Train # Класс Train (Поезд)
   def past_station
     @past_station = route.stations[@current_station_index - 1]
   end
+
+  # b = proc {|wagons| puts "#{wagons}"}
+  def wagons_puts_with_block(&b)
+    b.call(wagons)
+  end
+
+  # так не работает блок как аргумент
+  # def wagons_2(&{|wagons| puts "#{wagons}"})
+  #   {|wagons| puts "#{wagons}"}.call(wagons)
+  # end
+
+  # def f1(string)
+  #   puts string
+  # end
+  #
+  # def f2
+  #   f1(123)
+  # end
 
   protected
 

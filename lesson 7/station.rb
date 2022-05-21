@@ -36,47 +36,44 @@ class Station
     false
   end
 
-  # Может принимать поезда (по одному за раз)
   def arrival(train)
-    #@station.insert(0, train)
-    @trains.push(train) #poprobovat @trains << train
-    #if train.type == :cargo
-    #  @trains_type_cargo.push(train.type)
-    #elsif train.type == :passenger
-    #  @trains_type_passenger.push(train.type)
-    #end
+    @trains.push(train)
   end
 
-  # ридер :name, чтобы можно было в машрут забирать только названия станций
   attr_reader :name, :trains # Может возвращать список всех поездов на станции, находящихся в текущий момент
 
-  #def list_trains
-  #  @trains
-  #end
-
-  # Может возвращать список поездов на станции по типу кол-во грузовых, пассажирских
   def trains_by_type(type)
     puts trains.select {|train| train.type == type}.count # без .count - по типу, а с .count - сосчитает
-
-    #@trains_type_cargo.each { |cargo| puts cargo }
-    #@trains_type_passenger.each { |passenger| puts passenger } # ruby всегда чё-то возвращает, а each - массив
-    #[tipg, tipp].flatten.each
-    #nil - можно закрывать, чтобы метод не возвращал кучу данных в ответе
-    #puts Train::TYPE
-    #[@trains_type_cargo, @trains_type_passenger].flatten.tally
   end
 
   def list_trains
     trains.each {|train| puts train}
   end
 
-  # Может отправлять поезда (по одному за раз, при этом, поезд удаляется из списка поездов, находящихся на станции).
   def dispatch(train)
     @trains.delete(train)
-    #if train.type == :cargo
-    #  @trains_type_cargo.delete_at(-1)
-    #elsif train.type == :passenger
-    #  @trains_type_passenger.delete_at(-1)
-    #end
   end
+
+  # написать метод, который принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок
+  def count_trains_with_block #(station) # если используется &block (можно вместо block любое название), то &block вызывается через call. Если без, то через yield
+    #q=Station.new('q')
+    #d=CargoTrain.new("122ab")
+    #f=CargoTrain.new("tyz-88")
+    #q.arrival(d)
+    #q.arrival(f)
+    #q.count_trains_with_block { q.trains.each { |train| puts train}.count } - если в метод не передаётся аргумент в скобках
+    #q.count_trains_with_block("test") { |station| puts "#{station}"} - если в метод передаётся аргумент в скобках
+    yield #(station)
+  end
+
 end
+
+# q.count_trains_with_block("test") do |station|
+#   q.trains.each do |train|
+#     puts "#{train}"
+#   end.count
+# end
+#
+# [1,2,3].each do |var, var2|
+#   puts "V: #{var} V2: #{var2}"
+# end
