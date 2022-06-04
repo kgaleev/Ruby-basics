@@ -9,27 +9,33 @@ require_relative 'passenger_wagon'
 require_relative 'passenger_train'
 require_relative 'cargo_train'
 
-#p=Wagon.new(:cargo)
-#p=CargoWagon.new(2)
-#p.assign_company('wheels')
-#p.company
-#q=Station.new('q')
-#w=Station.new('w')
-#Station.all
-#d=CargoTrain.new(3)
-#d=CargoTrain.new("122ab")
-#f=CargoTrain.new("tyz-88")
-#Train.find(3)
-#Train.find("122ab")
-#g=PassengerTrain.new("abc-22")
-#z=Route.new(q,w)
-#z=Route.new('q','w')
-#x=Route.new(q,w)
-#Station.instances
-#Train.instances
-#CargoTrain.instances
-#PassengerTrain.instances
-#Route.instances
+# q=Station.new('q')
+# w=Station.new('w')
+# d=CargoTrain.new("122ab")
+# z=Route.new(q,w)
+# d.set_route(z)
+# p=CargoWagon.new(2)
+# d.add_wagon(p)
+
+# q.arrival(d)
+# p=Wagon.new(:cargo, 15)
+# p.assign_company('wheels')
+# p.company
+# Station.all
+# d=CargoTrain.new(3)
+# d=CargoTrain.new("122ab")
+# f=CargoTrain.new("tyz-88")
+# Train.find(3)
+# Train.find("122ab")
+# g=PassengerTrain.new("abc-22")
+# z=Route.new(q,w)
+# z=Route.new('q','w')
+# x=Route.new(q,w)
+# Station.instances
+# Train.instances
+# CargoTrain.instances
+# PassengerTrain.instances
+# Route.instances
 
 #will not work because private
 #a=Train.new(1,:cargo)

@@ -153,15 +153,15 @@ loop do #цикл
     train = trains.find {|train| train.number == train_number}
     if train.type == :cargo
       puts "\n" + "Specify capacity of a wagon"
-      capacity = gets.chomp.to_i
-      train.add_wagon(CargoWagon.new(train.type, capacity))
-      puts "\n" + "Cargo wagon with capacity of #{capacity} added to Train #{train.number}"
+      total_space = gets.chomp.to_i
+      train.add_wagon(CargoWagon.new(train.type, total_space))
+      puts "\n" + "Cargo wagon with capacity of #{total_space} added to Train #{train.number}"
       #puts "Cargo wagon #{CargoWagon.new(train.type, capacity)} added to Train #{train.number}"
     elsif train.type == :passenger
       puts "\n" + "Specify number of seats in a wagon"
-      seats = gets.chomp.to_i
-      train.add_wagon(PassengerWagon.new(train.type, seats))
-      puts "\n" + "Passenger wagon with #{seats} seats added to Train #{train.number}"
+      total_space = gets.chomp.to_i
+      train.add_wagon(PassengerWagon.new(train.type, total_space))
+      puts "\n" + "Passenger wagon with #{total_space} seats added to Train #{train.number}"
     end
     puts train.wagons
   end
@@ -176,7 +176,7 @@ loop do #цикл
   end
 
   if number == 9
-    puts "Select train number"
+    puts "Enter train number"
     trains.each {|train| puts "#{train.number} : #{train}"}
     train_number = gets.chomp
     train = trains.find {|train| train.number == train_number}
@@ -226,10 +226,10 @@ loop do #цикл
       puts "\n" + "Enter loading weight"
       weight = gets.chomp.to_i
       train.wagons[wagon_index].cargo_load = weight
-      puts "\n" + "Remaining capacity: #{train.wagons[wagon_index].remaining_load}"
+      puts "\n" + "Remaining capacity: #{train.wagons[wagon_index].remaining_space}"
     elsif train.wagons[wagon_index].wagon_type == :passenger
       train.wagons[wagon_index].book_seat
-      puts "\n" + "Remaining seats: #{train.wagons[wagon_index].free_seats}"
+      puts "\n" + "Remaining seats: #{train.wagons[wagon_index].remaining_space}"
     end
   end
 
