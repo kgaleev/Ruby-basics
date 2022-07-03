@@ -58,24 +58,25 @@ loop do # цикл
     begin
       puts 'Enter train number in format: ab2-3a (letters or numbers)'
       train_number = gets.chomp
-      if train_number =~ /^\w{3}-?\w{2}$/
-        puts 'Is your train cargo (1) or passenger (2)?'
-        # type = gets.chomp.to_sym
-        train_type = gets.chomp.to_i
-        # if type == :cargo
-        case train_type
-        when 1
-          trains << CargoTrain.new(train_number)
-          puts "\n#{train_number} created!"
-        when 2
-          # elsif type == :passenger
-          trains << PassengerTrain.new(train_number)
-          puts "\n#{train_number} created!"
-        end
-      else
-        raise
-        # puts "Format should be: ab2-3a. Try again"
+      raise unless train_number =~ /^\w{3}-?\w{2}$/
+
+      puts 'Is your train cargo (1) or passenger (2)?'
+      # type = gets.chomp.to_sym
+      train_type = gets.chomp.to_i
+      # if type == :cargo
+      case train_type
+      when 1
+        trains << CargoTrain.new(train_number)
+        puts "\n#{train_number} created!"
+      when 2
+        # elsif type == :passenger
+        trains << PassengerTrain.new(train_number)
+        puts "\n#{train_number} created!"
       end
+    # else
+    # raise
+    # puts "Format should be: ab2-3a. Try again"
+    #  end
     rescue StandardError
       puts "\nFormat should be: ab2-3a. Try again"
       retry
@@ -86,10 +87,13 @@ loop do # цикл
   if number == 3
     puts 'Name first station in route'
     first_station_name = gets.chomp
-    first_station = # если у объекта не вызвать метод для считывания, будет пытаться объект сравнить со строкой, на выход отдавать nil
+    first_station =
       stations.find do |station|
         station.name == first_station_name
       end
+    # если у объекта не вызвать метод для считывания,
+    # будет пытаться объект сравнить со строкой, на выход отдавать nil
+
     # puts stations
     puts 'Name last station in route'
     last_station_name = gets.chomp
@@ -99,7 +103,10 @@ loop do # цикл
     # route = Route.new(first_station, last_station)
     # route.list_stations
     # puts routes
-    # join returns a string created by converting each element of the array to a string, separated by the given separator
+
+    # join returns a string created by converting each element of the array to a string,
+    # separated by the given separator
+
     routes.each do |route|
       puts "#{route} : #{route.stations.map(&:name).join(', ')}"
     end
@@ -146,17 +153,18 @@ loop do # цикл
     puts 'Enter train number'
     trains.each { |train| puts "#{train.number} : #{train}" }
     train_number = gets.chomp
-    train = trains.find { |train| train.number == train_number }
-    train.set_route(routes[route_index])
-    puts train.route.to_s
+    train = trains.find { |trn| trn.number == train_number }
+    train.route = (routes[route_index])
+    puts train.route
+    puts train.route.stations[0].trains.each { |trn| puts "#{trn.number} : #{trn}" }
   end
 
   if number == 7
     puts 'Select train number'
-    trains.each { |train| puts "#{train.number} : #{train}" }
+    trains.each { |trn| puts "#{trn.number} : #{trn}" }
     puts "\n"
     train_number = gets.chomp
-    train = trains.find { |train| train.number == train_number }
+    train = trains.find { |trn| trn.number == train_number }
     case train.type
     when :cargo
       puts "\nSpecify capacity of a wagon"
@@ -175,27 +183,27 @@ loop do # цикл
 
   if number == 8
     puts 'Select train number'
-    trains.each { |train| puts "#{train.number} : #{train}" }
+    trains.each { |trn| puts "#{trn.number} : #{train}" }
     train_number = gets.chomp
-    train = trains.find { |train| train.number == train_number }
+    train = trains.find { |trn| trn.number == train_number }
     train.wagons.delete_at(-1)
     puts train.wagons
   end
 
   if number == 9
     puts 'Enter train number'
-    trains.each { |train| puts "#{train.number} : #{train}" }
+    trains.each { |trn| puts "#{trn.number} : #{trn}" }
     train_number = gets.chomp
-    train = trains.find { |train| train.number == train_number }
+    train = trains.find { |trn| trn.number == train_number }
     train.forward
     puts train.current_station
   end
 
   if number == 10
     puts 'Select train number'
-    trains.each { |train| puts "#{train.number} : #{train}" }
+    trains.each { |trn| puts "#{trn.number} : #{trn}" }
     train_number = gets.chomp
-    train = trains.find { |train| train.number == train_number }
+    train = trains.find { |trn| trn.number == train_number }
     train.back
     puts train.current_station
   end
@@ -205,21 +213,22 @@ loop do # цикл
   if number == 12
     puts 'Enter station'
     station_name = gets.chomp
-    station = stations.find { |station| station.name == station_name }
+    station = stations.find { |sttn| sttn.name == station_name }
     # station.list_trains
     if station.trains.empty? # if проверяет на true, a empty? возвращает true/false
-      puts 'you notice a group of strangers staring at you ༼ ºل͟º ༼ ºل͟º ༼ ºل͟º ༽ ºل͟º ༽ ºل͟º ༽ seems like you did something not acceptable'
+      puts 'you notice a group of strangers staring at you ༼ ºل͟º ༼ ºل͟º ༼ ºل͟º ༽ ºل͟º ༽ ºل͟º ༽'
+      puts 'seems like you did something not acceptable'
     else
       # station.list_trains
-      station.count_trains_with_block { trains.each { |train| puts train } }
+      station.count_trains_with_block { trains.each { |trn| puts trn } }
     end
   end
 
   if number == 13
     puts "\nEnter train number"
-    trains.each { |train| puts "#{train.number} : #{train}" }
+    trains.each { |trn| puts "#{trn.number} : #{trn}" }
     train_number = gets.chomp
-    train = trains.find { |train| train.number == train_number }
+    train = trains.find { |trn| trn.number == train_number }
     puts "\nChoose wagon"
     train.wagons.each_with_index do |wagon, index|
       print index
@@ -242,14 +251,14 @@ loop do # цикл
   next unless number == 14
 
   puts "\nSelect train"
-  trains.each_with_index do |train, index|
+  trains.each_with_index do |_trn, index|
     print index
     print ': '
     puts train.number
   end
   train_index = gets.chomp.to_i
   puts "\nUse SUPERPOWER?"
-  answer_doesnt_matter = gets.chomp
+  gets.chomp
   puts "\nBLOKACHU I PICK YOU ϞϞ(๑⚈․⚈๑)∩"
   puts
   b = proc { |wagons| puts wagons.to_s }

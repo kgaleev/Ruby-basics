@@ -4,9 +4,9 @@ class CargoWagon < Wagon
   public_class_method :new
 
   # Добавить атрибут общего объема (задается при создании вагона)
-  def initialize(type = :cargo, total_space)
+  def initialize(total_space)
     # super(type) - указать в скобках, если надо конкретный параметр от родителя, а не все
-    super(type, total_space)
+    super(:cargo, total_space)
     # @capacity = capacity
     # @current_load = 0
   end

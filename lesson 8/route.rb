@@ -22,12 +22,15 @@ class Route
 
   def validation!
     # raise "Station can't be string" if @stations[0].is_a?(String) || @stations[1].is_a?(String) #working
-    # raise "Station can't be string" if @stations.each {|station| station.is_a?(String)} #not working - .each returns self
+    # raise "Station can't be string" if @stations.each {|station| station.is_a?(String)}
+    # #not working - .each returns self
     # raise "Station can't be number" if @stations[0].is_a?(Integer) || @stations[1].is_a?(Integer) #working
-    unless @stations[0].instance_of?(Station) && @stations[1].instance_of?(Station)
-      raise 'Only created stations can be put as arguments'
-    end
-    # raise "Only created stations can be put as arguments" unless @stations.all?(Station) #not working without block, while [q,w].all?(Station) => true
+    return if @stations[0].instance_of?(Station) && @stations[1].instance_of?(Station)
+
+    raise 'Only created stations can be put as arguments'
+    # end
+    # raise "Only created stations can be put as arguments" unless @stations.all?(Station)
+    # #not working without block, while [q,w].all?(Station) => true
   end
 
   def valid?

@@ -4,8 +4,8 @@ class PassengerWagon < Wagon
   public_class_method :new
 
   # Добавить атрибут общего кол-ва мест (задается при создании вагона)
-  def initialize(type = :passenger, total_space)
-    super(type, total_space)
+  def initialize(total_space)
+    super(:passenger, total_space)
     # @seats = seats
     # @booked_seats = 0
   end

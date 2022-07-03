@@ -56,16 +56,21 @@ class Station
     @trains.delete(train)
   end
 
-  # написать метод, который принимает блок и проходит по всем поездам на станции, передавая каждый поезд в блок
-  # (station) # если используется &block (можно вместо block любое название), то &block вызывается через call. Если без, то через yield
+  # написать метод, который принимает блок и проходит по всем поездам на станции,
+  # передавая каждый поезд в блок (station)
+  # если используется &block (можно вместо block любое название),
+  # то &block вызывается через call. Если без, то через yield
   def count_trains_with_block
     # q=Station.new('q')
     # d=CargoTrain.new("122ab")
     # f=CargoTrain.new("tyz-88")
     # q.arrival(d)
     # q.arrival(f)
-    # q.count_trains_with_block { q.trains.each { |train| puts train}.count } - если в метод не передаётся аргумент в скобках
-    # q.count_trains_with_block("test") { |station| puts "#{station}"} - если в метод передаётся аргумент в скобках
+
+    # q.count_trains_with_block { q.trains.each { |train| puts train}.count }
+    # если в метод не передаётся аргумент в скобках
+    # q.count_trains_with_block("test") { |station| puts "#{station}"}
+    # если в метод передаётся аргумент в скобках
     yield # (station)
   end
 end
