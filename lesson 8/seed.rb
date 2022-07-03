@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative 'instance_counter'
 require_relative 'manufacturer'
 require_relative 'train'
@@ -37,9 +39,9 @@ require_relative 'cargo_train'
 # PassengerTrain.instances
 # Route.instances
 
-#will not work because private
-#a=Train.new(1,:cargo)
-#s=Train.new(2,:passenger)
+# will not work because private
+# a=Train.new(1,:cargo)
+# s=Train.new(2,:passenger)
 
 # Для пассажирских вагонов:
 # Добавить атрибут общего кол-ва мест (задается при создании вагона)

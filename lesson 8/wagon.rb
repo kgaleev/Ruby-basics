@@ -1,5 +1,6 @@
-class Wagon
+# frozen_string_literal: true
 
+class Wagon
   include Manufacturer
 
   attr_reader :wagon_type, :occupied_space, :total_space
@@ -13,7 +14,6 @@ class Wagon
   end
 
   def remaining_space
-    self.total_space - self.occupied_space
+    total_space - occupied_space
   end
-
 end

@@ -1,12 +1,14 @@
-class CargoTrain < Train
+# frozen_string_literal: true
 
+class CargoTrain < Train
   public_class_method :new
 
   @instances = 0
-  def initialize(number)#=, type = :cargo)#, wagons)
+  #=, type = :cargo)#, wagons)
+  def initialize(number)
     # вынести отдельно @type = :cargo, чтобы не было доступа
-    #@type = :cargo
+    # @type = :cargo
     super(number, :cargo)
-    #super(number, :cargo)
+    # super(number, :cargo)
   end
 end

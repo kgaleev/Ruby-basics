@@ -1,10 +1,12 @@
-class PassengerTrain < Train
+# frozen_string_literal: true
 
+class PassengerTrain < Train
   public_class_method :new
 
   @instances = 0
-  def initialize(number)#, type = :passenger)#, wagons)
+  # , type = :passenger)#, wagons)
+  def initialize(number)
     super(number, :passenger)
-    #@type = :passenger
+    # @type = :passenger
   end
 end
