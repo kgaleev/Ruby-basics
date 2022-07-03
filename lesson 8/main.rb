@@ -169,13 +169,13 @@ loop do # цикл
     when :cargo
       puts "\nSpecify capacity of a wagon"
       total_space = gets.chomp.to_i
-      train.add_wagon(CargoWagon.new(train.type, total_space))
+      train.add_wagon(CargoWagon.new(total_space))
       puts "\nCargo wagon with capacity of #{total_space} added to Train #{train.number}"
       # puts "Cargo wagon #{CargoWagon.new(train.type, capacity)} added to Train #{train.number}"
     when :passenger
       puts "\nSpecify number of seats in a wagon"
       total_space = gets.chomp.to_i
-      train.add_wagon(PassengerWagon.new(train.type, total_space))
+      train.add_wagon(PassengerWagon.new(total_space))
       puts "\nPassenger wagon with #{total_space} seats added to Train #{train.number}"
     end
     puts train.wagons
@@ -220,7 +220,7 @@ loop do # цикл
       puts 'seems like you did something not acceptable'
     else
       # station.list_trains
-      station.count_trains_with_block { trains.each { |trn| puts trn } }
+      station.count_trains_with_block { station.trains.each { |trn| puts trn } }
     end
   end
 
@@ -251,10 +251,10 @@ loop do # цикл
   next unless number == 14
 
   puts "\nSelect train"
-  trains.each_with_index do |_trn, index|
+  trains.each_with_index do |trn, index|
     print index
     print ': '
-    puts train.number
+    puts trn.number
   end
   train_index = gets.chomp.to_i
   puts "\nUse SUPERPOWER?"
