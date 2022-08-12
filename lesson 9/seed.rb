@@ -10,6 +10,19 @@ require_relative 'cargo_wagon'
 require_relative 'passenger_wagon'
 require_relative 'passenger_train'
 require_relative 'cargo_train'
+require_relative 'accessors'
+
+class Test
+  extend Accessors
+
+  attr_accessor_with_history :my_attr, :a, :b, :c
+end
+
+# m = Test.new
+# Test.attr_accessor_with_history('be')
+# m.be = 5
+# m.be +=1
+# Test.attr_accessor_with_history('be1', 'ce1', 'de1')
 
 # q=Station.new('q')
 # w=Station.new('w')
