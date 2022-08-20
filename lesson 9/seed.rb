@@ -12,17 +12,18 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'accessors'
 
-class Test
-  extend Accessors
+# class Test
+#   extend Accessors
+#
+#   attr_accessor_with_history :my_attr, :a, :b, :c
+# end
 
-  attr_accessor_with_history :my_attr, :a, :b, :c
-end
-
-# m = Test.new
-# Test.attr_accessor_with_history('be')
-# m.be = 5
-# m.be +=1
-# Test.attr_accessor_with_history('be1', 'ce1', 'de1')
+# Test.attr_accessor_with_history('bb', 'cc', 'dd')
+# a = Test.new
+# a.bb = 5
+# a.bb = 4
+# a.bb = 3
+# a.bb_history
 
 # q=Station.new('q')
 # w=Station.new('w')
