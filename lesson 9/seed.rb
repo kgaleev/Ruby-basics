@@ -19,6 +19,7 @@ require_relative 'accessors'
 # end
 
 # Test.attr_accessor_with_history('bb', 'cc', 'dd')
+# Test.strong_attr_accessor('vv', String)
 # a = Test.new
 # a.bb = 5
 # a.bb = 4
