@@ -5,38 +5,45 @@ class Station
   @instances = 0
 
   class << self
-    attr_accessor :instances
+    attr_accessor :instances # can be called on class now
   end
 
   include InstanceCounter
+  include Validation
 
+  validate :name, :presence
+  validate :name, :type, String
+  validate :name, :format, /[a-zA-Z]/ # group of letters is packaged in square brackets
   def initialize(name)
     @name = name
     @trains = [] # все поезда на станции
     @@all_stations << self
     register_instance
-    station_name_check!
+    validate!
+    #    station_name_check!
   end
 
   def self.all
     @@all_stations
   end
 
-  def station_name_check!
-    # raise "Name can't be nil! Put it in quotes" if name.nil? #== nil
-    raise 'Only string can be here' unless @name.is_a?(String) # @name.respond_to?(:to_s)
-    # raise ArgumentError, "Name can't be blank!" #if ArgumentError - not working
-    # raise ArgumentError.new("Name can't be blank") - not working
-  ensure
-    puts '(´_ゝ`)'
-  end
 
-  def valid?
-    station_name_check!
-    true
-  rescue StandardError
-    false
-  end
+#  def station_name_check!
+    #    # raise "Name can't be nil! Put it in quotes" if name.nil? #== nil
+    #    raise 'Only string can be here' unless @name.is_a?(String) # @name.respond_to?(:to_s)
+    #    # raise ArgumentError, "Name can't be blank!" #if ArgumentError - not working
+    #    # raise ArgumentError.new("Name can't be blank") - not working
+# ensure
+#   puts '(´_ゝ`)'
+#   end
+
+
+#def valid?
+#  station_name_check!
+#  true
+#rescue StandardError
+#  false
+#end
 
   def arrival(train)
     @trains.push(train)
@@ -75,12 +82,3 @@ class Station
   end
 end
 
-# q.count_trains_with_block("test") do |station|
-#   q.trains.each do |train|
-#     puts "#{train}"
-#   end.count
-# end
-#
-# [1,2,3].each do |var, var2|
-#   puts "V: #{var} V2: #{var2}"
-# end

@@ -8,37 +8,44 @@ class Route
   end
 
   include InstanceCounter
+  include Validation
+
+  validate :stations, :presence
+  validate :stations, :format, /[a-zA-Z]/
+  validate :first_station, :type, Station
+  validate :last_station, :type, Station
 
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
     register_instance
     # @last_station = last_station # для проверки при движении поезда до конечной
-    validation!
+    validate!
+    #validation!
   end
 
-  attr_reader :stations
+  attr_reader :stations, :first_station, :last_station
 
   # attr_reader :last_station
 
-  def validation!
-    # raise "Station can't be string" if @stations[0].is_a?(String) || @stations[1].is_a?(String) #working
-    # raise "Station can't be string" if @stations.each {|station| station.is_a?(String)}
-    # #not working - .each returns self
-    # raise "Station can't be number" if @stations[0].is_a?(Integer) || @stations[1].is_a?(Integer) #working
-    return if @stations[0].instance_of?(Station) && @stations[1].instance_of?(Station)
+# def validation!
+#   # raise "Station can't be string" if @stations[0].is_a?(String) || @stations[1].is_a?(String) #working
+#   # raise "Station can't be string" if @stations.each {|station| station.is_a?(String)}
+#   # #not working - .each returns self
+#   # raise "Station can't be number" if @stations[0].is_a?(Integer) || @stations[1].is_a?(Integer) #working
+#   return if @stations[0].instance_of?(Station) && @stations[1].instance_of?(Station)
+#
+#   raise 'Only created stations can be put as arguments'
+#   # end
+#   # raise "Only created stations can be put as arguments" unless @stations.all?(Station)
+#   # #not working without block, while [q,w].all?(Station) => true
+# end
 
-    raise 'Only created stations can be put as arguments'
-    # end
-    # raise "Only created stations can be put as arguments" unless @stations.all?(Station)
-    # #not working without block, while [q,w].all?(Station) => true
-  end
-
-  def valid?
-    validation!
-    true
-  rescue StandardError
-    false
-  end
+#  def valid?
+#    validation!
+#    true
+#  rescue StandardError
+#    false
+#  end
 
   def add_station(station)
     # Может добавлять промежуточную станцию в список
