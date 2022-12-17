@@ -13,6 +13,7 @@ class Train
 
   include Manufacturer
   include InstanceCounter
+  include Validation
 
   # @instances = 0
 
@@ -20,7 +21,14 @@ class Train
     attr_accessor :instances
   end
 
-  private_class_method :new
+  # private_class_method :new
+
+  validate :number, :presence
+  validate :number, :type, String
+  validate :number, :format, /^\w{3}-?\w{2}$/
+  validate :type, :presence
+  validate :type, :type, Symbol
+  validate :type, :format, /cargo|passenger/
 
   def initialize(number, type)
     @number = number
@@ -30,26 +38,28 @@ class Train
     @wagons = [] # При добавлении вагона к поезду, объект вагона должен передаваться
     # как аргумент метода и сохраняться во внутреннем массиве поезда
     @speed = 0
-    register_instance
-    train_check!
+    # register_instance
+    validate!
+    # train_check!
     # self.class.instances +=1
     # @current_station -- без значения это не инициализация, а обращение;
     # т.е. бесполезная строка
   end
 
-  def train_check!
-    # raise "Whole number only" unless @number.is_a?(Integer)
-    return if @number =~ /^\w{3}-?\w{2}$/
+ # def train_check!
+ #   # raise "Whole number only" unless @number.is_a?(Integer)
+ #   return if @number =~ /^\w{3}-?\w{2}$/
+ #   # =~ operator matches the regular expression against a string
+ #
+ #   raise 'Format should be: 3 letters (or numbers) - 2 letters (or numbers); ex: ab2-3a'
+ # end
 
-    raise 'Format should be: 3 letters (or numbers) - 2 letters (or numbers); ex: ab2-3a'
-  end
-
-  def valid?
-    train_check!
-    true
-  rescue StandardError
-    false
-  end
+  # def valid?
+  #   train_check!
+  #   true
+  # rescue StandardError
+  #   false
+  # end
 
   def self.find(train_number)
     @@trains.find { |train| train.number == train_number }
