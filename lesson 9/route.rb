@@ -10,13 +10,15 @@ class Route
   include InstanceCounter
   include Validation
 
-  validate :stations, :presence
-  validate :stations, :format, /[a-zA-Z]/
+  validate :first_station, :presence
   validate :first_station, :type, Station
+  validate :last_station, :presence
   validate :last_station, :type, Station
 
   def initialize(first_station, last_station)
     @stations = [first_station, last_station]
+    @first_station = first_station
+    @last_station = last_station
     register_instance
     # @last_station = last_station # для проверки при движении поезда до конечной
     validate!

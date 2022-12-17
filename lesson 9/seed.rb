@@ -13,53 +13,37 @@ require_relative 'passenger_train'
 require_relative 'cargo_train'
 require_relative 'accessors'
 
-# class Test
-#   extend Accessors
-#
-#   attr_accessor_with_history :my_attr, :a, :b, :c
-# end
-
 # Test.attr_accessor_with_history('bb', 'cc', 'dd')
-# Test.strong_attr_accessor('vv', String)
 # a = Test.new
 # a.bb = 5
 # a.bb = 4
 # a.bb = 3
 # a.bb_history
 
+# Test.strong_attr_accessor('vv', String)
+# a.vv = 1 # F
+# a.vv = 'a' # => 'a'
+# a.vv # => 'a'
+
+# q=Station.new('') # name can not be blank
 # q=Station.new(1) # not a string
 # q=Station.new('1') # invalid format
 # q=Station.new('q') # ok
-# w=Station.new('w')
-# z=Route.new(1,2) # invalid format
-# z=Route.new('q','w') # not a station
-# z=Route.new(q,'w') # not a station
-# z=Route.new(q,w) ok
-# d=CargoTrain.new("122ab")
-# d.route=(z)
-# p=CargoWagon.new(2)
-# d.add_wagon(p)
-
-# q.arrival(d)
-# p=Wagon.new(:cargo, 15)
-# p.assign_company('wheels')
-# p.company
-# Station.all
-# d=CargoTrain.new(3)
-# d=CargoTrain.new("122ab")
-# f=CargoTrain.new("tyz-88")
-# Train.find(3)
-# Train.find("122ab")
-# g=PassengerTrain.new("abc-22")
-# z=Route.new(q,w)
-# z=Route.new('q','w')
-# x=Route.new(q,w)
-# Station.instances
-# Train.instances
-# CargoTrain.instances
-# PassengerTrain.instances
-# Route.instances
-
-# will not work because private
-# a=Train.new(1,:cargo)
-# s=Train.new(2,:passenger)
+# q.valid? # true
+# w=Station.new('we1') # ok
+#
+# z=Route.new('','') # first can not be blank
+# z=Route.new('q','w') # first not a station
+# z=Route.new(q,'') # last can not be blank #needs q=Station.new('q')
+# z=Route.new(q,'w') # last not a station
+# z=Route.new(q,w) # ok #needs w=Station.new('we1')
+# z.valid? # true
+#
+# a=Train.new('', :cargo) # number can not be blank
+# a=Train.new(1, :cargo) # number is not a string
+# a=Train.new('a', :cargo) # number format invalid
+# a=Train.new('123-ab', '') # type can not be blank
+# a=Train.new('123-ab', 1) # type is not a symbol
+# a=Train.new('123-ab', :a) # type format invalid
+# a=Train.new('123-ab', :cargo) # ok
+# a.valid? # true

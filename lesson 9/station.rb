@@ -13,7 +13,7 @@ class Station
 
   validate :name, :presence
   validate :name, :type, String
-  validate :name, :format, /[a-zA-Z]/ # group of letters is packaged in square brackets
+  validate :name, :format, /[a-zA-Z]+/ # group of letters is packaged in square brackets
   def initialize(name)
     @name = name
     @trains = [] # все поезда на станции
